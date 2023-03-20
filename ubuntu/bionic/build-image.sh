@@ -6,13 +6,13 @@ set -e
 
 case "$ARCH" in
     amd64)
-        sg docker -c "docker build ./amd64 -f ./amd64/Dockerfile -t eclipse/zenoh-flow-bionic-build:amd64 --no-cache" --oom-kill-disable
+        sg docker -c "docker build ./amd64 -f ./amd64/Dockerfile -t gabrik91/ubuntu-build:bionic-amd64 --no-cache" --oom-kill-disable
         ;;
     arm64)
-        sg docker -c "docker build ./arm64 -f ./arm64/Dockerfile -t eclipse/zenoh-flow-bionic-build:arm64 --no-cache" --oom-kill-disable
+        sg docker -c "docker build ./arm64 -f ./arm64/Dockerfile -t gabrik91/ubuntu-build:bionic-arm64 --no-cache" --oom-kill-disable
         ;;
     armhf)
-        sg docker -c "docker build ./armhf -f ./armhf/Dockerfile -t eclipse/zenoh-flow-bionic-build:armhf --no-cache" --oom-kill-disable
+        sg docker -c "docker build ./armhf -f ./armhf/Dockerfile -t gabrik91/ubuntu-build:bionic-armhf --no-cache" --oom-kill-disable
         ;;
     *)
     printf "Unrecognized architecture $ARCH\n"

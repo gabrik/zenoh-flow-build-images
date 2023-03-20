@@ -9,7 +9,7 @@ BRANCH="master"
 REPO="https://github.com/atolab/zenoh-flow"
 BRANCH="feat/meta-package"
 
-IMAGE="eclipse/zenoh-flow-bionic-build"
+IMAGE="gabrik91/ubuntu-build"
 OUTPUT_DIRECTORY="$WD/target/bionic"
 mkdir -p ${OUTPUT_DIRECTORY}
 
@@ -20,7 +20,7 @@ case "$ARCH" in
         BIN_OUTPUT_DIRECTORY="$OUTPUT_DIRECTORY/amd64/bin"
         TARGET="x86_64-unknown-linux-gnu"
         CONTAINER="build-bionic-amd64"
-        IMAGE="$IMAGE:amd64"
+        IMAGE="$IMAGE:bionic-amd64"
 
         mkdir -p ${DEB_OUTPUT_DIRECTORY}
         printf "Building on image $IMAGE\n"
@@ -43,7 +43,7 @@ case "$ARCH" in
         BIN_OUTPUT_DIRECTORY="$OUTPUT_DIRECTORY/aarch64/bin"
         TARGET="aarch64-unknown-linux-gnu"
         CONTAINER="build-bionic-arm64"
-        IMAGE="$IMAGE:arm64"
+        IMAGE="$IMAGE:bionic-arm64"
 
         mkdir -p ${DEB_OUTPUT_DIRECTORY}
         printf "Building on image $IMAGE\n"
@@ -73,7 +73,7 @@ case "$ARCH" in
         BIN_OUTPUT_DIRECTORY="$OUTPUT_DIRECTORY/armhf/bin"
         TARGET="armv7-unknown-linux-gnueabihf"
         CONTAINER="build-bionic-armhf"
-        IMAGE="$IMAGE:armhf"
+        IMAGE="$IMAGE:bionic-armhf"
 
         mkdir -p ${DEB_OUTPUT_DIRECTORY}
         printf "Building on image $IMAGE\n"
@@ -103,7 +103,7 @@ case "$ARCH" in
         BIN_OUTPUT_DIRECTORY="$OUTPUT_DIRECTORY/amd64-musl/bin"
         TARGET="x86_64-unknown-linux-musl"
         CONTAINER="build-bionic-amd64-musl"
-        IMAGE="$IMAGE:amd64"
+        IMAGE="$IMAGE:bionic-amd64"
 
         mkdir -p ${DEB_OUTPUT_DIRECTORY}
         printf "Building on image $IMAGE\n"

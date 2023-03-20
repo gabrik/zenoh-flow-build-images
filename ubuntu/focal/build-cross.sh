@@ -6,7 +6,7 @@ WD=$(pwd)
 REPO="https://github.com/eclipse-zenoh/zenoh-flow"
 BRANCH="master"
 
-IMAGE="eclipse/zenoh-flow-focal-build"
+IMAGE="gabrik91/ubuntu-build"
 OUTPUT_DIRECTORY="$WD/target/focal"
 mkdir -p ${OUTPUT_DIRECTORY}
 
@@ -17,7 +17,7 @@ case "$ARCH" in
         BIN_OUTPUT_DIRECTORY="$OUTPUT_DIRECTORY/amd64/bin"
         TARGET="x86_64-unknown-linux-gnu"
         CONTAINER="build-focal-amd64"
-        IMAGE="$IMAGE:amd64"
+        IMAGE="$IMAGE:focal-amd64"
 
         mkdir -p ${DEB_OUTPUT_DIRECTORY}
         printf "Building on image $IMAGE\n"
@@ -40,7 +40,7 @@ case "$ARCH" in
         BIN_OUTPUT_DIRECTORY="$OUTPUT_DIRECTORY/aarch64/bin"
         TARGET="aarch64-unknown-linux-gnu"
         CONTAINER="build-focal-arm64"
-        IMAGE="$IMAGE:arm64"
+        IMAGE="$IMAGE:focal-arm64"
 
         mkdir -p ${DEB_OUTPUT_DIRECTORY}
         printf "Building on image $IMAGE\n"
@@ -70,7 +70,7 @@ case "$ARCH" in
         BIN_OUTPUT_DIRECTORY="$OUTPUT_DIRECTORY/armhf/bin"
         TARGET="armv7-unknown-linux-gnueabihf"
         CONTAINER="build-focal-armhf"
-        IMAGE="$IMAGE:armhf"
+        IMAGE="$IMAGE:focal-armhf"
 
         mkdir -p ${DEB_OUTPUT_DIRECTORY}
         printf "Building on image $IMAGE\n"
@@ -100,7 +100,7 @@ case "$ARCH" in
         BIN_OUTPUT_DIRECTORY="$OUTPUT_DIRECTORY/amd64-musl/bin"
         TARGET="x86_64-unknown-linux-musl"
         CONTAINER="build-focal-amd64-musl"
-        IMAGE="$IMAGE:amd64"
+        IMAGE="$IMAGE:focal-amd64"
 
         mkdir -p ${DEB_OUTPUT_DIRECTORY}
         printf "Building on image $IMAGE\n"
