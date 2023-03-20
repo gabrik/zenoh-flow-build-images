@@ -3,7 +3,7 @@ FROM ubuntu:bionic
 LABEL authors="Gabriele Baldoni"
 
 RUN DEBIAN_FRONTEND=noninteractive apt update && \
-	DEBIAN_FRONTEND=noninteractive apt install git equivs  musl-tools build-essential devscripts debhelper pkg-config dpkg-dev libnftnl-dev libnfnetlink-dev libmnl-dev -y
+	DEBIAN_FRONTEND=noninteractive apt install git equivs  musl-tools build-essential devscripts debhelper pkg-config dpkg-dev libpython3-dev equivs -y
 
 COPY bin/uid_entrypoint /bin/uid_entrypoint
 RUN mkdir -p /home/jenkins

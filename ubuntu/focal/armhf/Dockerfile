@@ -9,7 +9,7 @@ COPY etc/arm-cross-compile-sources.list /etc/apt/sources.list.d/arm-cross-compil
 RUN DEBIAN_FRONTEND=noninteractive dpkg --add-architecture armhf
 
 RUN DEBIAN_FRONTEND=noninteractive apt update && \
-	DEBIAN_FRONTEND=noninteractive apt install --fix-missing equivs git musl-tools build-essential devscripts debhelper pkg-config dpkg-dev crossbuild-essential-armhf pkg-config-arm-linux-gnueabihf libnftnl-dev:armhf libnfnetlink-dev:armhf libmnl-dev:armhf -y
+	DEBIAN_FRONTEND=noninteractive apt install --fix-missing equivs git musl-tools build-essential devscripts debhelper pkg-config dpkg-dev crossbuild-essential-armhf pkg-config-arm-linux-gnueabihf equivs libpython3-dev:armhf -y
 
 
 COPY bin/uid_entrypoint /bin/uid_entrypoint
