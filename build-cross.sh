@@ -7,8 +7,8 @@ REPO="https://github.com/eclipse-zenoh/zenoh-flow"
 BRANCH="master"
 
 case "$DISTRO" in
-    ubuntu-bionic)
-        bash -c "ARCH=$ARCH ./ubuntu/bionic/build-cross.sh"
+    ubuntu-jammy)
+        bash -c "ARCH=$ARCH ./ubuntu/jammy/build-cross.sh"
         ;;
     ubuntu-focal)
         bash -c "ARCH=$ARCH ./ubuntu/focal/build-cross.sh"
