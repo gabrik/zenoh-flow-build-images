@@ -140,8 +140,8 @@ docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.ca
 
 # generate debian packages for zenoh-flow-daemon, zenoh-flow-ctl and zenoh-flow meta-pacakge
 docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow/ && cargo deb --target=${TARGET} -p zenoh-flow-daemon --no-build'
-docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow/ && cargo deb --target=${TARGET}  -p zenoh-flow-ctl --no-build'
-docker exec -u root ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow/zenoh-flow/resources/debian/ &&  equivs-build zenoh-flow'
+docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow/ && cargo deb --target=${TARGET}  -p zfctl --no-build'
+docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow/ && cargo deb --target=${TARGET}  -p zenoh-flow-plugin --no-build'
 
 # copy-out generated debian files
 docker exec -u root ${CONTAINER} bash -c "mkdir /tmp/amd64 && cp /root/zenoh-flow/target/$TARGET/debian/*.deb /tmp/amd64"
@@ -150,7 +150,7 @@ docker cp  "$CONTAINER:/tmp/amd64" ${DEB_OUTPUT_DIRECTORY}
 
 # copy-out generated binaries
 docker exec -u root ${CONTAINER} bash -c "mkdir /tmp/bin && cp /root/zenoh-flow/target/$TARGET/release/zenoh-flow-daemon /tmp/bin"
-docker exec -u root ${CONTAINER} bash -c "cp /root/zenoh-flow/target/$TARGET/release/zenoh-flow-ctl /tmp/bin"
+docker exec -u root ${CONTAINER} bash -c "cp /root/zenoh-flow/target/$TARGET/release/zfctl /tmp/bin"
 docker exec -u root ${CONTAINER} bash -c "cp /root/zenoh-flow/target/$TARGET/release/cargo-zenoh-flow /tmp/bin"
 docker cp  "$CONTAINER:/tmp/bin" ${BIN_OUTPUT_DIRECTORY}
 
