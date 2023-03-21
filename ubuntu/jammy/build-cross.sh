@@ -4,6 +4,7 @@
 set -e
 WD=$(pwd)
 REPO="https://github.com/eclipse-zenoh/zenoh-flow"
+PYREPO="https://github.com/eclipse-zenoh/zenoh-flow-python"
 BRANCH="master"
 
 IMAGE="gabrik91/ubuntu-build"
@@ -135,16 +136,34 @@ esac
 
 # cloning repos inside container
 docker exec -u root ${CONTAINER} bash -c "cd /root && git clone $REPO -b $BRANCH"
+docker exec -u root ${CONTAINER} bash -c "cd /root && git clone $PYREPO -b $BRANCH"
 # build zenoh-flow
 docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow/ && cargo build --target=${TARGET} --release --all-targets'
+# build zenoh-flow-python wrappers
+docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && cargo build --target=${TARGET} --release --all-targets'
+
+# build zenoh-flow-python
+docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && python3 -m venv && source venv/bin/activate && cd zenoh-flow-python && pip3 install -r requirements-dev.txt && maturin build --release'
+
 
 # generate debian packages for zenoh-flow-daemon, zenoh-flow-ctl and zenoh-flow meta-pacakge
 docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow/ && cargo deb --target=${TARGET} -p zenoh-flow-daemon --no-build'
 docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow/ && cargo deb --target=${TARGET}  -p zfctl --no-build'
 docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow/ && cargo deb --target=${TARGET}  -p zenoh-flow-plugin --no-build'
 
+# generate debian packages for zenoh-flow-python-wrappers and meta pacakges
+docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && cargo deb --target=${TARGET} -p -p zenoh-flow-python-source-wrapper --no-build'
+docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && cargo deb --target=${TARGET} -p -p zenoh-flow-python-sink-wrapper --no-build'
+docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && cargo deb --target=${TARGET} -p -p zenoh-flow-python-operator-wrapper --no-build'
+docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && equivs-build zenoh-flow-python-extension'
+docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && equivs-build zenoh-flow-python-extension-plugin'
+
+
+
 # copy-out generated debian files
 docker exec -u root ${CONTAINER} bash -c "mkdir /tmp/amd64 && cp /root/zenoh-flow/target/$TARGET/debian/*.deb /tmp/amd64"
+docker exec -u root ${CONTAINER} bash -c "cp /root/zenoh-flow-python/target/$TARGET/debian/*.deb /tmp/amd64"
+docker exec -u root ${CONTAINER} bash -c "cp /root/zenoh-flow-python/target/$TARGET/wheels/*.whl /tmp/amd64"
 # docker exec -u root ${CONTAINER} bash -c "cp /root/zenoh-flow/zenoh-flow/resources/debian/*.deb /tmp/amd64"
 docker cp  "$CONTAINER:/tmp/amd64" ${DEB_OUTPUT_DIRECTORY}
 

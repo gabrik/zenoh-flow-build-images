@@ -8,7 +8,7 @@ COPY etc/arm-cross-compile-sources.list /etc/apt/sources.list.d/arm-cross-compil
 RUN DEBIAN_FRONTEND=noninteractive dpkg --add-architecture arm64
 
 RUN DEBIAN_FRONTEND=noninteractive apt update && \
-	DEBIAN_FRONTEND=noninteractive apt install git equivs  musl-tools build-essential devscripts debhelper pkg-config dpkg-dev crossbuild-essential-arm64  pkg-config-aarch64-linux-gnu gcc-aarch64-linux-gnu equivs libpython3-dev:arm64 libpython3-dev -y
+	DEBIAN_FRONTEND=noninteractive apt install git equivs  musl-tools build-essential devscripts debhelper pkg-config dpkg-dev crossbuild-essential-arm64  pkg-config-aarch64-linux-gnu gcc-aarch64-linux-gnu equivs libpython3-dev:arm64 libpython3-dev python3-venv -y
 
 COPY bin/uid_entrypoint /bin/uid_entrypoint
 RUN mkdir -p /home/jenkins
