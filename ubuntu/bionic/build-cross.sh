@@ -6,9 +6,6 @@ WD=$(pwd)
 REPO="https://github.com/eclipse-zenoh/zenoh-flow"
 BRANCH="master"
 
-REPO="https://github.com/atolab/zenoh-flow"
-BRANCH="feat/meta-package"
-
 IMAGE="gabrik91/ubuntu-build"
 OUTPUT_DIRECTORY="$WD/target/bionic"
 mkdir -p ${OUTPUT_DIRECTORY}
