@@ -161,11 +161,12 @@ docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.ca
 
 
 # copy-out generated debian files
-docker exec -u root ${CONTAINER} bash -c "mkdir /tmp/amd64 && cp /root/zenoh-flow/target/$TARGET/debian/*.deb /tmp/amd64"
-docker exec -u root ${CONTAINER} bash -c "cp /root/zenoh-flow-python/target/$TARGET/debian/*.deb /tmp/amd64"
-docker exec -u root ${CONTAINER} bash -c "cp /root/zenoh-flow-python/target/wheels/*.whl /tmp/amd64"
-# docker exec -u root ${CONTAINER} bash -c "cp /root/zenoh-flow/zenoh-flow/resources/debian/*.deb /tmp/amd64"
-docker cp  "$CONTAINER:/tmp/amd64" ${DEB_OUTPUT_DIRECTORY}
+docker exec -u root ${CONTAINER} bash -c "mkdir /tmp/${ARCH} && cp /root/zenoh-flow/target/$TARGET/debian/*.deb /tmp/${ARCH}"
+docker exec -u root ${CONTAINER} bash -c "cp /root/zenoh-flow-python/target/$TARGET/debian/*.deb /tmp/${ARCH}"
+docker exec -u root ${CONTAINER} bash -c "cp /root/zenoh-flow-python/*.deb /tmp/${ARCH}"
+docker exec -u root ${CONTAINER} bash -c "cp /root/zenoh-flow-python/target/wheels/*.whl /tmp/${ARCH}"
+# docker exec -u root ${CONTAINER} bash -c "cp /root/zenoh-flow/zenoh-flow/resources/debian/*.deb /tmp/deb"
+docker cp  "$CONTAINER:/tmp/$ARCH" ${DEB_OUTPUT_DIRECTORY}
 
 # copy-out generated binaries
 docker exec -u root ${CONTAINER} bash -c "mkdir /tmp/bin && cp /root/zenoh-flow/target/$TARGET/release/zenoh-flow-daemon /tmp/bin"
