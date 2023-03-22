@@ -144,7 +144,7 @@ docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.ca
 docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && cargo build --target=${TARGET} --release --all-targets'
 
 # build zenoh-flow-python
-docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && python3 -m venv && source venv/bin/activate && cd zenoh-flow-python && pip3 install -r requirements-dev.txt && maturin build --release'
+docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && python3 -m venv venv && source venv/bin/activate && cd zenoh-flow-python && pip3 install -r requirements-dev.txt && maturin build --release'
 
 # generate debian packages for zenoh-flow-daemon, zenoh-flow-ctl and zenoh-flow meta-pacakge
 docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow/ && cargo deb --target=${TARGET} -p zenoh-flow-daemon --no-build'
