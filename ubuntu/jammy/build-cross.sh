@@ -152,9 +152,9 @@ docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.ca
 docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow/ && cargo deb --target=${TARGET}  -p zenoh-flow-plugin --no-build'
 
 # generate debian packages for zenoh-flow-python-wrappers and meta pacakges
-docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && cargo deb --target=${TARGET} -p -p zenoh-flow-python-source-wrapper --no-build'
-docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && cargo deb --target=${TARGET} -p -p zenoh-flow-python-sink-wrapper --no-build'
-docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && cargo deb --target=${TARGET} -p -p zenoh-flow-python-operator-wrapper --no-build'
+docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && cargo deb --target=${TARGET} -p zenoh-flow-python-source-wrapper --no-build'
+docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && cargo deb --target=${TARGET} -p zenoh-flow-python-sink-wrapper --no-build'
+docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && cargo deb --target=${TARGET} -p zenoh-flow-python-operator-wrapper --no-build'
 docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && equivs-build zenoh-flow-python-extension'
 docker exec -u root -e TARGET=${TARGET} ${CONTAINER} bash -c 'source ${HOME}/.cargo/env && cd /root/zenoh-flow-python/ && equivs-build zenoh-flow-python-extension-plugin'
 
